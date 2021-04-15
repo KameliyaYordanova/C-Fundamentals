@@ -1,0 +1,16 @@
+using System;
+
+namespace Fundametals.Exam
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string studentName = Console.ReadLine();
+            int ageStudent = int.Parse(Console.ReadLine());
+            double averageStudent = double.Parse(Console.ReadLine());
+
+            Console.WriteLine($"Name: {studentName}, Age: {ageStudent}, Grade: {averageStudent:F2}");
+        }
+    }
+}
