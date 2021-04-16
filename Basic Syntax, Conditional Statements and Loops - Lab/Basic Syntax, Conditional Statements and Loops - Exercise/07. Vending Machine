@@ -1,0 +1,67 @@
+using System;
+
+namespace MoreExercise
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double insertedMoneySum = 0;
+
+            while (true)
+            {
+                string strInsertedMoney = Console.ReadLine();
+                if (strInsertedMoney == "Start")
+                    break;
+
+                double dInsertedMoney = double.Parse(strInsertedMoney);
+                if (dInsertedMoney == 0.1 || dInsertedMoney == 0.2 || dInsertedMoney == 0.5 ||
+                    dInsertedMoney == 1 || dInsertedMoney == 2)
+                {
+                    insertedMoneySum += dInsertedMoney;
+                }
+                else
+                {
+                    Console.WriteLine($"Cannot accept {dInsertedMoney}");
+                }
+            }
+
+            while (true)
+            {
+                string strProducName = Console.ReadLine();
+                if (strProducName == "End")
+                    break;
+
+                double dProductPrice = 0;
+
+                if (strProducName == "Nuts")
+                    dProductPrice = 2.0;
+                else if (strProducName == "Water")
+                    dProductPrice = 0.7;
+                else if (strProducName == "Crisps")
+                    dProductPrice = 1.5;
+                else if (strProducName == "Soda")
+                    dProductPrice = 0.8;
+                else if (strProducName == "Coke")
+                    dProductPrice = 1.0;
+                else
+                    Console.WriteLine("Invalid product");
+
+                if (dProductPrice > 0)
+                {
+                    if (insertedMoneySum >= dProductPrice)
+                    {
+                        Console.WriteLine($"Purchased {strProducName.ToLower()}");
+                        insertedMoneySum -= dProductPrice;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Sorry, not enough money");
+                    }
+                }
+            }
+
+            Console.WriteLine($"Change: {insertedMoneySum:F2}");
+        }
+    }
+}
