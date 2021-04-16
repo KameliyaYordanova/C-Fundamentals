@@ -1,0 +1,18 @@
+using System;
+
+namespace DataType
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            decimal num = decimal.Parse(Console.ReadLine());
+
+            decimal result = num * 1.31M;
+
+            Console.WriteLine($"{result:F3}");
+
+
+        }
+    }
+}
