@@ -1,0 +1,17 @@
+using System;
+
+namespace DataType
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string name = Console.ReadLine();
+
+            if (name == name.ToUpper())
+                Console.WriteLine("upper-case");
+            else
+                Console.WriteLine("lower-case");
+        }
+    }
+}
