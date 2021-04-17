@@ -1,0 +1,37 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace Methods
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            int firstNumber = int.Parse(Console.ReadLine());
+            int secondNumber = int.Parse(Console.ReadLine());
+
+            double factorialFirstNum = GetFactorial(firstNumber);
+            double factorialSecondtNum = GetFactorial(secondNumber);
+
+            double result = factorialFirstNum / factorialSecondtNum;
+            Console.WriteLine($"{result:F2}");
+        }
+
+        private static double GetFactorial(double firstNumber)
+        {
+            double result = 1;
+            while (firstNumber != 1)
+            {
+                result = result * firstNumber;
+                firstNumber = firstNumber - 1;
+            }
+            return result;
+        }
+    }
+}
+
