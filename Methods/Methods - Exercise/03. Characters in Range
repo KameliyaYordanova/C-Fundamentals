@@ -1,0 +1,36 @@
+using System;
+using System.ComponentModel;
+using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace Methods
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            char firsChar = char.Parse(Console.ReadLine());
+            char secondChar = char.Parse(Console.ReadLine());
+
+            PrintIntBetween(firsChar, secondChar);
+        }
+
+        private static void PrintIntBetween(char firsChar, char secondChar)
+        {
+            if (firsChar > secondChar)
+            {
+                char first = firsChar;
+                firsChar = secondChar;
+                secondChar = first;
+            }
+
+            for (int i = firsChar + 1; i < secondChar; i++)
+            {
+                Console.Write((char)i + " ");
+            }
+        }
+    }
+}
+
