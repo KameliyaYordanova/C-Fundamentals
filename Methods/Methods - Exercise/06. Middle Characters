@@ -1,0 +1,44 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace Methods
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+
+            if (input.Length % 2 == 0)
+            {
+                string output = GetMiddleCharEven(input);
+                Console.WriteLine(output);
+            }
+            else
+            {
+                string oddOutput = GetMiddleCharOdd(input);
+                Console.WriteLine(oddOutput);
+            }
+        }
+
+        private static string GetMiddleCharOdd(string input)
+        {
+            int index = input.Length / 2;
+            string chars = input.Substring(index, 1);
+            return chars;
+        }
+
+        private static string GetMiddleCharEven(string input)
+        {
+            int index = input.Length / 2;
+            string chars = input.Substring(index - 1, 2);
+            return chars;
+        }
+    }
+}
+
