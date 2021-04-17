@@ -1,0 +1,40 @@
+using System;
+using System.ComponentModel;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace Methods
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            int firstDigit = int.Parse(Console.ReadLine());
+            int secondDigit = int.Parse(Console.ReadLine());
+            int thurdDigit = int.Parse(Console.ReadLine());
+
+            int result = Sum(firstDigit, secondDigit, thurdDigit);
+
+            Console.WriteLine(result);
+
+        }
+
+        private static int Sum(int firstDigit, int secondDigit, int thurdDigit)
+        {
+            int sum = firstDigit + secondDigit;
+
+            return Subtract(thurdDigit, sum);
+
+        }
+
+        private static int Subtract(int thurdDigit, int sum)
+        {
+            return sum - thurdDigit;
+
+        }
+    }
+}
+
