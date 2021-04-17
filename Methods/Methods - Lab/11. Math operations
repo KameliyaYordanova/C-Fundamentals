@@ -1,0 +1,45 @@
+using System;
+using System.ComponentModel;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace Methods
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            int a = int.Parse(Console.ReadLine());
+            string symbol = Console.ReadLine();
+            int b = int.Parse(Console.ReadLine());
+
+            double result = Calculate(a, symbol, b);
+            string strResult = $"{result:F2}";
+            string[] arrResult = strResult.Split('.');
+
+            if (arrResult.Length > 1 && arrResult[1] == "00")
+                Console.WriteLine(arrResult[0]);
+            else
+                Console.WriteLine(strResult);
+
+        }
+
+        private static double Calculate(int a, string symbol, int b)
+        {
+            double result = 0;
+
+            if (symbol == "*")
+                result = a * b;
+            else if (symbol == "+")
+                result = a + b;
+            else if (symbol == "-")
+                result = a - b;
+            else if (symbol == "/")
+                result = a / (double)b;
+
+            return result;
+        }
+    }
+}
+
