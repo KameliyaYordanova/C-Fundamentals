@@ -1,0 +1,30 @@
+using System;
+using System.ComponentModel;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace Methods
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            string text = Console.ReadLine();
+            int n = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(RepeatString(text, n)); 
+        }
+        private static string RepeatString(string text, int n)
+        {
+            string result = "";
+            for (int i = 0; i < n; i++)
+            {
+                result += text;
+            }
+
+            return result;
+        }
+    }
+}
+
