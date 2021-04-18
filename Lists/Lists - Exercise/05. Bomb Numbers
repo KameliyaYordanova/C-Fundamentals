@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+namespace MoreExerciseArrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> list = Console.ReadLine().Split().Select(int.Parse).ToList();
+            int[] bombData = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+            int specialBombNumber = bombData[0];
+            int power = bombData[1];
+
+            int bombIndex = list.IndexOf(specialBombNumber);
+
+            while (bombIndex != -1)
+            {
+                int leftNumber = bombIndex - power;
+                int rightNumber = bombIndex + power;
+
+                if (leftNumber < 0)
+                {
+                    leftNumber = 0;
+                }
+                if (rightNumber > list.Count - 1)
+                {
+                    rightNumber = list.Count - 1;
+                }
+
+
+                list.RemoveRange(leftNumber, rightNumber - leftNumber + 1);
+
+                bombIndex = list.IndexOf(specialBombNumber);
+            }
+
+            int sum = 0;
+            foreach (var item in list)
+            {
+                sum += item;
+            }
+
+            Console.WriteLine(sum);
+
+        }
+    }
+}
