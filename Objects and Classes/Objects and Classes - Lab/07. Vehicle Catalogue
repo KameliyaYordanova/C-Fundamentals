@@ -1,0 +1,91 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _07Lab
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            CatalogVehicle catalogVehicle = new CatalogVehicle();
+
+            string command = Console.ReadLine();
+
+            while (command != "end")
+            {
+                string[] elements = command.Split('/');
+
+                string type = elements[0];
+                string brand = elements[1];
+                string model = elements[2];
+                int attribute = int.Parse(elements[3]);
+
+                if (type == "Car")
+                {
+                    Car car = new Car();
+                    car.Brand = brand;
+                    car.Model = model;
+                    car.HorsePower = attribute;
+
+                    catalogVehicle.Cars.Add(car);
+                }
+                else if (type == "Truck")
+                {
+                    Truck truck = new Truck();
+                    truck.Brand = brand;
+                    truck.Model = model;
+                    truck.Weight = attribute;
+
+                    catalogVehicle.Trucks.Add(truck);
+                }
+
+                command = Console.ReadLine();
+            }
+
+            if (catalogVehicle.Cars.Count > 0)
+            {
+                Console.WriteLine("Cars:");
+                catalogVehicle.Cars = catalogVehicle.Cars.OrderBy(x => x.Brand).ToList();
+                foreach (Car car in catalogVehicle.Cars)
+                {
+                    Console.WriteLine($"{car.Brand}: {car.Model} - {car.HorsePower}hp");
+                }
+            }
+
+            if (catalogVehicle.Trucks.Count > 0)
+            {
+                Console.WriteLine("Trucks:");
+                catalogVehicle.Trucks = catalogVehicle.Trucks.OrderBy(x => x.Brand).ToList();
+                foreach (Truck truck in catalogVehicle.Trucks)
+                {
+                    Console.WriteLine($"{truck.Brand}: {truck.Model} - {truck.Weight}kg");
+                }
+            }
+        }
+    }
+    class Truck
+    {
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public int Weight { get; set; }
+    }
+    class Car
+    {
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public int HorsePower { get; set; }
+    }
+
+    class CatalogVehicle
+    {
+        public CatalogVehicle()
+        {
+            Cars = new List<Car>();
+            Trucks = new List<Truck>();
+        }
+
+        public List<Car> Cars { get; set; }
+        public List<Truck> Trucks { get; set; }
+    }
+}
