@@ -1,0 +1,127 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Exsercise
+{
+    class Program
+    {
+        private static Student existingStudent;
+
+        static void Main(string[] args)
+        {
+
+            List<Student> students = new List<Student>();
+
+            string command = Console.ReadLine();
+
+            while (command != "end")
+            {
+                string[] elements = command.Split();
+
+                string firstName = elements[0];
+                string lastName = elements[1];
+                int age = int.Parse(elements[2]);
+                string city = elements[3];
+
+                bool bStandardWay = true;
+                if (bStandardWay)
+                    AddStudentStandard(students, firstName, lastName, age, city);
+                else
+                    AddStudentByLinq(students, firstName, lastName, age, city);
+
+                command = Console.ReadLine();
+            }
+
+            string filterCity = Console.ReadLine();
+
+            foreach (Student student in students)
+            {
+                if (student.City == filterCity)
+                {
+                    Console.WriteLine($"{student.FirstName} {student.LastName} is { student.Age } years old.");
+                }
+            }
+        }
+
+        static void AddStudentByLinq(List<Student> students, string firstName, string lastName, int age, string city)
+        {
+            Student student = students.FirstOrDefault(s => s.FirstName == firstName && s.LastName == lastName);
+
+            if (student == null)
+            {
+                students.Add(new Student()
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Age = age,
+                    City = city
+                });
+            }
+            else
+            {
+                student.FirstName = firstName;
+                student.LastName = lastName;
+                student.Age = age;
+                student.City = city;
+            }
+        }
+
+        static void AddStudentStandard(List<Student> students, string firstName, string lastName, int age, string city)
+        {
+            if (IsStudentExisting(students, firstName, lastName))
+            {
+                Student student = GetStudent(students, firstName, lastName);
+
+                student.FirstName = firstName;
+                student.LastName = lastName;
+                student.Age = age;
+                student.City = city;
+            }
+            else
+            {
+                Student student = new Student()
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Age = age,
+                    City = city
+                };
+
+                students.Add(student);
+            }
+        }
+
+        static bool IsStudentExisting(List<Student> students, string firstName, string lastName)
+        {
+            foreach (Student student in students)
+            {
+                if (student.FirstName == firstName && student.LastName == lastName)
+                    return true;
+            }
+
+            return false;
+        }
+
+        static Student GetStudent(List<Student> students, string firstName, string lastName)
+        {
+            foreach (Student student in students)
+            {
+                if (student.FirstName == firstName && student.LastName == lastName)
+                {
+                    existingStudent = student;
+                }
+            }
+
+            return existingStudent;
+        }
+    }
+
+    class Student
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        public string City { get; set; }
+    }
+}
