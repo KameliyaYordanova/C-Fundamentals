@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Songs
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Box> boxes = new List<Box>();
+
+            string command = Console.ReadLine();
+
+            while (command != "end")
+            {
+                string[] elements = command.Split();
+
+                string serialNumber = elements[0];
+                string itemName = elements[1];
+                int quantity = int.Parse(elements[2]);
+                decimal itemPrice = decimal.Parse(elements[3]);
+
+                Item item = new Item();
+                item.Name = itemName;
+                item.Price = itemPrice;
+
+                Box box = new Box();
+                box.SerialNumber = serialNumber;
+                box.Item = item;
+                box.Quantity = quantity;
+                box.PriceBox = box.Quantity * item.Price;
+
+                boxes.Add(box);
+
+                command = Console.ReadLine();
+            }
+
+            boxes = boxes.OrderByDescending(x => x.PriceBox).ToList();
+
+            foreach (Box box in boxes)
+            {
+                Console.WriteLine($"{box.SerialNumber}");
+                Console.WriteLine($"-- {box.Item.Name} - ${box.Item.Price:F2}: {box.Quantity}");
+                Console.WriteLine($"-- ${box.PriceBox:F2}");
+            }
+        }
+    }
+
+    class Item
+    {
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+    }
+
+    class Box
+    {
+        public Box()
+        {
+            Item = new Item();
+        }
+
+        public string SerialNumber { get; set; }
+        public Item Item { get; set; }
+        public int Quantity { get; set; }
+        public decimal PriceBox { get; set; }
+    }
+}
