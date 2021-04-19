@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+
+namespace _06.Object
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Person> people = new List<Person>();
+
+            string command = Console.ReadLine();
+
+            while (command != "End")
+            {
+                string[] elements = command.Split(' ');
+
+                string firstName = elements[0];
+                int idNumber = int.Parse(elements[1]);
+                int age = int.Parse(elements[2]);
+
+                Person currentPerson = new Person(firstName, idNumber, age);
+                people.Add(currentPerson);
+
+                command = Console.ReadLine();
+            }
+
+            people = people.OrderBy(x => x.Age).ToList();
+
+            foreach (Person person in people)
+            {
+                Console.WriteLine(person.ToString());
+            }
+        }
+    }
+
+    class Person
+    {
+        public Person(string firsName, int idNumber, int age)
+        {
+            FirstName = firsName;
+            IdNumber = idNumber;
+            Age = age;
+        }
+
+        public string FirstName { get; set; }
+        public int IdNumber { get; set; }
+        public int Age { get; set; }
+
+        public override string ToString()
+        {
+            return $"{FirstName} with ID: {IdNumber} is {Age} years old.";
+        }
+    }
+
+}
