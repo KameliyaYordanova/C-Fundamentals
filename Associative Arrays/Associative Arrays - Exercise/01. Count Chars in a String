@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace AssociativeArrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string text = Console.ReadLine();
+            Dictionary<char, int> number = new Dictionary<char, int>();
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                char letter = text[i];
+
+                if (letter != ' ')
+                {
+                    if (number.ContainsKey(letter))
+                    {
+                        number[letter]++;
+                    }
+                    else
+                    {
+                        number.Add(letter, 1);
+                    }
+                }
+            }
+
+            foreach (var numText in number)
+            {
+                Console.WriteLine($"{numText.Key} -> {numText.Value}");
+            }
+        }
+    }
+}
