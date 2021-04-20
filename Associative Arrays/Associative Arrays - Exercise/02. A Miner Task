@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace AssociativeArrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Dictionary<string, int> number = new Dictionary<string, int>();
+
+            while (true)
+            {
+                string resorce = Console.ReadLine();
+                if (resorce == "stop")
+                    break;
+                int quantity = int.Parse(Console.ReadLine());
+
+                if (number.ContainsKey(resorce))
+                {
+                    number[resorce] += quantity;
+                }
+                else
+                {
+                    number.Add(resorce, quantity);
+                }
+
+            }
+
+            foreach (var numText in number)
+            {
+                Console.WriteLine($"{numText.Key} -> {numText.Value}");
+            }
+        }
+    }
+}
