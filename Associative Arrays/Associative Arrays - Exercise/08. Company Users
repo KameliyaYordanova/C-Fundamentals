@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _08.CompanyUsers
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string command = Console.ReadLine();
+
+            Dictionary<string, List<string>> dctEmployees = new Dictionary<string, List<string>>();
+
+            while (command != "End")
+            {
+                string[] commandParts = command.Split(" -> ", StringSplitOptions.RemoveEmptyEntries);
+
+                string companyName = commandParts[0];
+                string employeeId = commandParts[1];
+
+                if (dctEmployees.ContainsKey(companyName))
+                {
+                    List<string> dictValue = dctEmployees[companyName];
+
+                    bool employeeExists = dictValue.Contains(employeeId);
+                    if (!employeeExists)
+                        dctEmployees[companyName].Add(employeeId);
+                }
+                else
+                {
+                    dctEmployees.Add(companyName, new List<string> { employeeId });
+                }
+
+                command = Console.ReadLine();
+            }
+
+            dctEmployees = dctEmployees.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+
+            foreach (var item in dctEmployees)
+            {
+                Console.WriteLine($"{item.Key}");
+                foreach (string employeeId in item.Value)
+                {
+                    Console.WriteLine($"-- {employeeId}");
+                }
+            }
+        }
+    }
+}
