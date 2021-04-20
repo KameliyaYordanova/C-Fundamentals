@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _07.StudentAcademy
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, List<double>> dctGrades = new Dictionary<string, List<double>>();
+
+            int gradesCount = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < gradesCount; i++)
+            {
+                string studentName = Console.ReadLine();
+                double studentGrade = double.Parse(Console.ReadLine());
+
+                if (dctGrades.ContainsKey(studentName))
+                    dctGrades[studentName].Add(studentGrade);
+                else
+                    dctGrades.Add(studentName, new List<double>() { studentGrade });
+            }
+
+            Dictionary<string, double> dctAvgGrades = new Dictionary<string, double>();
+
+            foreach (var item in dctGrades)
+            {
+                double avgGrade = item.Value.Average();
+                if (avgGrade >= 4.50)
+                    dctAvgGrades.Add(item.Key, avgGrade);
+            }
+
+            dctAvgGrades = dctAvgGrades.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            foreach (var item in dctAvgGrades)
+            {
+                Console.WriteLine($"{item.Key} -> {item.Value:F2}");
+            }
+        }
+    }
+}
