@@ -1,0 +1,84 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace _9.ForceBook
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string command = Console.ReadLine();
+
+            Dictionary<string, List<string>> dctSides = new Dictionary<string, List<string>>();
+
+            while (command != "Lumpawaroo")
+            {
+                string side = "";
+                string user = "";
+
+                string[] commandParts = new string[] { };
+                if (command.Contains("|"))
+                {
+                    commandParts = command.Split(new string[] { " | " }, StringSplitOptions.RemoveEmptyEntries);
+                    side = commandParts[0];
+                    user = commandParts[1];
+                }
+                else
+                {
+                    commandParts = command.Split(new string[] { " -> " }, StringSplitOptions.RemoveEmptyEntries);
+                    user = commandParts[0];
+                    side = commandParts[1];
+
+                    RemoveUser(dctSides, user);
+
+                    Console.WriteLine($"{user} joins the {side} side!");
+                }
+
+                RegisterUser(dctSides, side, user);
+
+                command = Console.ReadLine();
+            }
+
+            dctSides = dctSides.OrderByDescending(x => x.Value.Count).ThenBy(x => x.Key)
+                .ToDictionary(x => x.Key, x => x.Value);
+
+            foreach (var item in dctSides)
+            {
+                if (item.Value.Count > 0)
+                {
+                    Console.WriteLine($"Side: {item.Key}, Members: {item.Value.Count}");
+
+                    item.Value.Sort();
+
+                    foreach (string user in item.Value)
+                    {
+                        Console.WriteLine($"! {user}");
+                    }
+                }
+            }
+        }
+
+        private static void RemoveUser(Dictionary<string, List<string>> dctSides, string user)
+        {
+            foreach (var item in dctSides)
+            {
+                if (item.Value.Contains(user))
+                    item.Value.Remove(user);
+            }
+        }
+
+        private static void RegisterUser(Dictionary<string, List<string>> dctSides, string side, string user)
+        {
+            if (dctSides.ContainsKey(side))
+            {
+                if (!dctSides[side].Contains(user))
+                    dctSides[side].Add(user);
+            }
+            else
+            {
+                dctSides.Add(side, new List<string>() { user });
+            }
+        }
+    }
+}
