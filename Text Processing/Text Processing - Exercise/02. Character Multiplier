@@ -1,0 +1,46 @@
+using System;
+using System.Linq;
+
+namespace StringsandTextProcessing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var tokens = Console.ReadLine().Split();
+
+            var firstWord = tokens[0];
+            var secondWord = tokens[1];
+
+            var longestWord = firstWord;
+            var shortWord = secondWord;
+
+            if (firstWord.Length < secondWord.Length)
+            {
+                longestWord = secondWord;
+                shortWord = firstWord;
+            }
+
+            var total = CharacterMultiplier(longestWord, shortWord);
+
+            Console.WriteLine(total);
+        }
+
+        public static int CharacterMultiplier(string longestWord, string shortWord)
+        {
+            var sum = 0;
+
+            for (int i = 0; i < shortWord.Length; i++)
+            {
+                var multiPly = longestWord[i] * shortWord[i];
+                sum += multiPly;
+            }
+
+            for (int i = shortWord.Length; i < longestWord.Length; i++)
+            {
+                sum += longestWord[i];
+            }
+            return sum;
+        }
+    }
+}
