@@ -1,0 +1,21 @@
+using System;
+using System.Text.RegularExpressions;
+
+namespace RegularExpressions
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string parttern = @"\b[A-Z][a-z]+ [A-Z][a-z]+";
+
+            Regex regex = new Regex(parttern);
+
+            string text = Console.ReadLine();
+            var matches = regex.Matches(text);
+
+            Console.WriteLine(string.Join(' ', matches));
+
+        }
+    }
+}
