@@ -1,0 +1,29 @@
+using System;
+
+namespace StringExplosion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+
+
+            while (input != "end")
+            {
+                char[] chars = input.ToCharArray();
+                string reverse = "";
+
+                for (int i = chars.Length - 1; i > -1; i--)
+                {
+                    reverse += chars[i];
+                }
+
+                Console.WriteLine($"{input} = {reverse}");
+
+                input = Console.ReadLine();
+            }
+
+        }
+    }
+}
