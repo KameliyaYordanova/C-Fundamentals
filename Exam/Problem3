@@ -1,0 +1,49 @@
+static void Main(string[] args)
+        {
+            Dictionary<string, List<string>> dctEmails = new Dictionary<string, List<string>>();
+
+            string input = Console.ReadLine();
+            while (input != "Statistics")
+            {
+                string[] inputParts = input.Split("->", StringSplitOptions.RemoveEmptyEntries);
+                string command = inputParts[0];
+                string username = inputParts[1];
+
+                if (command == "Add")
+                {
+                    if (dctEmails.ContainsKey(username))
+                        Console.WriteLine($"{username} is already registered");
+                    else
+                        dctEmails.Add(username, new List<string>());
+                }
+                else if (command == "Send")
+                {
+                    string email = inputParts[2];
+                    if (dctEmails.ContainsKey(username))
+                    {
+                        dctEmails[username].Add(email);
+                    }
+                }
+                else if (command == "Delete")
+                {
+                    if (dctEmails.ContainsKey(username))
+                        dctEmails.Remove(username);
+                    else
+                        Console.WriteLine($"{username} not found!");
+                }
+
+                input = Console.ReadLine();
+            }
+
+            dctEmails = dctEmails.OrderByDescending(x => x.Value.Count).ThenBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+
+            Console.WriteLine($"Users count: {dctEmails.Count}");
+            foreach (var item in dctEmails)
+            {
+                Console.WriteLine($"{item.Key}");
+                foreach (var email in item.Value)
+                {
+                    Console.WriteLine($" - {email}");
+                }
+            }
+        }
