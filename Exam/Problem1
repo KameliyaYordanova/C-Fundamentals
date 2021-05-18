@@ -1,0 +1,67 @@
+static void Main(string[] args)
+        {
+            string userName = Console.ReadLine();
+
+            string input = Console.ReadLine();
+
+            while (input != "Sign up")
+            {
+                string[] comdAvg = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                string commands = comdAvg[0];
+
+                if (commands == "Case")
+                {
+                    string letters = comdAvg[1];
+                    if (letters == "lower")
+                        userName = userName.ToLower();
+                    else
+                        userName = userName.ToUpper();
+                    Console.WriteLine($"{userName}");
+                }
+                else if (commands == "Reverse")
+                {
+                    int startIndex = int.Parse(comdAvg[1]);
+                    int endIndex = int.Parse(comdAvg[2]);
+
+                    bool IsValidIndex = startIndex >= 0 && startIndex < userName.Length &&
+                        endIndex >= 0 && endIndex < userName.Length && endIndex >= startIndex;
+
+                    if (IsValidIndex)
+                    {
+                        string modUsername = userName.Substring(startIndex, endIndex - startIndex + 1);
+                        modUsername = new string(modUsername.Reverse().ToArray());
+
+                        Console.WriteLine($"{modUsername}");
+                    }
+                }
+                else if (commands == "Cut")
+                {
+                    string substring = comdAvg[1];
+                    int cutStringIndex = userName.IndexOf(substring);
+
+                    if (cutStringIndex >= 0)
+                    {
+                        userName = userName.Remove(cutStringIndex, substring.Length);
+                        Console.WriteLine($"{userName}");
+                    }
+                    else
+                        Console.WriteLine($"The word {userName} doesn't contain {substring}.");
+                }
+                else if (commands == "Replace")
+                {
+                    string repString = comdAvg[1];
+                    userName = userName.Replace(repString, "*");
+                    Console.WriteLine($"{userName}");
+                }
+                else if (commands == "Check")
+                {
+                    string checkString = comdAvg[1];
+                    if (userName.Contains(checkString))
+                        Console.WriteLine("Valid");
+                    else
+                        Console.WriteLine($"Your username must contain {checkString}.");
+                }
+
+                input = Console.ReadLine();
+            }
+        }
