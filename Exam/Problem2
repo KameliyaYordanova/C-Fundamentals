@@ -1,0 +1,39 @@
+ static void Main(string[] args)
+        {
+           
+            int linesCount = int.Parse(Console.ReadLine());
+            string pattern = @"([*][A-Z][a-z]{2,}[*]: (\[[A-Za-z]\]\|){3})$|([@][A-Z][a-z]{2,}[@]: (\[[A-Za-z]\]\|){3})$";
+
+            Regex rx = new Regex(pattern, RegexOptions.None);
+
+            for (int i = 0; i < linesCount; i++)
+            {
+                string input = Console.ReadLine();
+
+                MatchCollection matches = rx.Matches(input);
+                if (matches.Count == 0)
+                {
+                    Console.WriteLine("Valid message not found!");
+                }
+                else
+                {
+                    string matchValue = matches[0].Value;
+                    string[] messageParts = matchValue.Split(':');
+
+                    string command = messageParts[0].Trim(new char[] { '@', '*' });
+                    string[] letters = messageParts[1].Trim().Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    List<int> asciiCodes = new List<int>();
+                    for (int j = 0; j < letters.Length; j++)
+                    {
+                        string letter = letters[j].Trim(new char[] { '[', ']' });
+
+                        int asciiCode = letter[0];
+                        asciiCodes.Add(asciiCode);
+                    }
+
+                    string asciiCodesOutput = string.Join(" ", asciiCodes);
+                    Console.WriteLine($"{command}: {asciiCodesOutput}");
+                }
+            }
+        }
